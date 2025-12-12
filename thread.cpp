@@ -41,7 +41,6 @@ void Thread::saveItemsToJson(const QVector<Item*>& items, const QString& fileNam
     QJsonObject rootObject;
     rootObject["items"] = jsonArray;
     rootObject["totalItems"] = jsonArray.size();
-    rootObject["timestamp"] = QDateTime::currentDateTime().toString(Qt::ISODate);
 
     QFile file(fileName);
     if (file.open(QIODevice::WriteOnly)) {
@@ -58,15 +57,8 @@ void Thread::saveItemsToJson(const QVector<Item*>& items, const QString& fileNam
 void Thread::run()
 {
 
-    // emit threadStarted(threadId);
 
     qDebug() << "Running" << threadId << "on thread ID:" << QThread::currentThreadId();
-
-    // // Clear previous items
-    // for (Item* item : items) {
-    //     delete item;
-    // }
-    // items.clear();
 
     int totalItems = endIndex - startIndex;
 
@@ -76,21 +68,11 @@ void Thread::run()
         int result = i * 1000;
         numbers.push_back(i);
 
-        // Create Item object
-        // QString itemName = QString("Item_%1").arg(i);
-        // Item* item = new Item(i, itemName);
-        // items.push_back(item);
+        QString itemName = QString("Item_%1").arg(i);
+        Item* item = new Item(i, itemName);
+        items.push_back(item);
 
-        // Calculate result (simulating work)
-        // int result = i * 1000;
-
-        // Emit progress every 100 items
-        // if ((i - startIndex) % 100 == 0) {
-        //     int percent = ((i - startIndex) * 100) / totalItems;
-        //     emit progressUpdated(threadId, percent);
-        // }
     }
-
 }
 
 void Thread::startThreads(int totalWork)

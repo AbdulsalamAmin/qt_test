@@ -23,7 +23,6 @@ public:
     static QString generateThreadId(int index);
     static void startThreads(int totalWork);
 
-    // اضافه کردن تابع ذخیره‌سازی JSON
     static void saveItemsToJson(const QVector<Item*>& items, const QString& fileName);
 
     // Getters
